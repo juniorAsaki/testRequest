@@ -24,10 +24,10 @@ public class ForumServiceImpl implements ForumService {
     @Override
     public ForumDTO createForum(ForumDTO forumDTO) {
 
-        Forum forum = forumMapper.toForum(forumDTO);
+        Forum forum = forumMapper.toEntity(forumDTO);
         forum.setCreated(Instant.now());
 
-        return forumMapper.toForumDTO(forumRepository.save(forum));
+        return forumMapper.toDto(forumRepository.save(forum));
     }
 
     @Override
@@ -37,11 +37,11 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Optional<ForumDTO> getForum(Long forumId) {
-        return forumRepository.findById(forumId).map(forumMapper::toForumDTO);
+        return forumRepository.findById(forumId).map(forumMapper::toDto);
     }
 
     @Override
     public List<ForumDTO> getForums() {
-        return forumRepository.findAll().stream().map(forumMapper::toForumDTO).collect(Collectors.toList());
+        return forumRepository.findAll().stream().map(forumMapper::toDto).collect(Collectors.toList());
     }
 }

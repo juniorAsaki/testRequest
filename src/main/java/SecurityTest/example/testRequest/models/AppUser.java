@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "user")
+@Table(name = "app-user")
 @Data
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,15 @@ public class User {
 
     private String username;
 
+    @Column(unique = true , nullable = false)
+    private String email;
+
     private String password;
+
+    private boolean actif = false;
 
     private boolean rememberMe;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Role role;
 }
